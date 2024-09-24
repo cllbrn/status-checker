@@ -3,25 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Status Checker v1</title>
+    <title>ESP8266 Durum Kontrolü</title>
     <script>
-        function checkWebsiteStatus() {
-            fetch('http://31.16.176.84', { method: 'HEAD' })  // Kontrol edilecek web sitesinin URL'si
+        function checkStatus() {
+            fetch('http://31.16.176.84') // Buraya ESP8266'nın IP adresini yazın
                 .then(response => {
-                    if (response.ok) {
-                        document.getElementById('status').innerHTML = "Online";
-                    } else {
-                        document.getElementById('status').innerHTML = "Offline";
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
                     }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('status').innerText = data; // Yanıtı göster
                 })
                 .catch(error => {
-                    document.getElementById('status').innerHTML = "Offline";
+                    document.getElementById('status').innerText = 'Offline'; // Hata durumu
                 });
         }
     </script>
 </head>
-<body onload="checkWebsiteStatus()">
-    <h1>Website Status Checker v1</h1>
-    <p>Website Status: <span id="status">Checking...</span></p>
+<body onload="checkStatus()">
+    <h1>ESP8266 Durum Kontrolü</h1>
+    <p>Durum: <span id="status">Kontrol ediliyor...</span></p>
 </body>
 </html>
