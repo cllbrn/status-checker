@@ -6,7 +6,7 @@
     <title>Website Status Checker</title>
     <script>
         function checkWebsiteStatus() {
-            fetch('https://www.example.com', { method: 'HEAD' })  // Kontrol edilecek web sitesinin URL'si
+            fetch('http://31.16.176.84:8080', { method: 'HEAD' })  // Kontrol edilecek web sitesinin URL'si
                 .then(response => {
                     if (response.ok) {
                         document.getElementById('status').innerHTML = "Online";
